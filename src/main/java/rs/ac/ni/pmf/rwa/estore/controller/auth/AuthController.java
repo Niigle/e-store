@@ -2,6 +2,7 @@ package rs.ac.ni.pmf.rwa.estore.controller.auth;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -16,6 +17,7 @@ import rs.ac.ni.pmf.rwa.estore.service.auth.AuthService;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
+@Slf4j
 public class AuthController {
 
     private final AuthService _authService;
@@ -23,6 +25,7 @@ public class AuthController {
     @PostMapping("/login")
     public AuthResponse authenticate(@RequestBody @Valid final AuthRequest authRequest)
     {
+        log.debug("User logged in: " + authRequest.getUsername());
         return _authService.authenticate(authRequest.getUsername(), authRequest.getPassword());
     }
 

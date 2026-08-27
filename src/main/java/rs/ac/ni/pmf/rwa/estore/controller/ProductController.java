@@ -1,9 +1,9 @@
 package rs.ac.ni.pmf.rwa.estore.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import rs.ac.ni.pmf.rwa.estore.model.entity.ProductEntity;
+import rs.ac.ni.pmf.rwa.estore.model.dto.request.ProductRequest;
+import rs.ac.ni.pmf.rwa.estore.model.dto.response.ProductResponse;
 import rs.ac.ni.pmf.rwa.estore.service.ProductService;
 
 import java.util.List;
@@ -18,51 +18,42 @@ public class ProductController {
         this.productService = productService;
     }
 
-    //TODO vrati DTO ne entity
-
     @GetMapping
-    public ResponseEntity<List<ProductEntity>> getAllProducts() {
-        return ResponseEntity.ok(productService.getAllProducts());
+    public List<ProductResponse> getAllProducts() {
+
+        return productService.getAllProducts();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductEntity> getProductById(@PathVariable Long id) {
-        return productService.getProductById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ProductResponse getProductById(@PathVariable Long id) {
+
+        return productService.getProductById(id);
     }
 
     @GetMapping("/barcode/{barcode}")
-    public ResponseEntity<ProductEntity> getProductByBarcode(@PathVariable String barcode) {
-        return productService.getProductByBarcode(barcode)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ProductResponse getProductByBarcode(@PathVariable String barcode) {
+
+        return productService.getProductByBarcode(barcode);
     }
 
     @PostMapping
-    public ResponseEntity<ProductEntity> createProduct(@RequestBody ProductEntity product) {
-        ProductEntity createdProduct = productService.createProduct(product);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductResponse createProduct(@RequestBody ProductRequest  productRequest) {
+
+        return productService.createProduct(productRequest);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductEntity> updateProduct(@PathVariable Long id, @RequestBody ProductEntity productDetails) {
-        try {
-            ProductEntity updatedProduct = productService.updateProduct(id, productDetails);
-            return ResponseEntity.ok(updatedProduct);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ProductResponse updateProduct(@RequestBody ProductRequest  productRequest) {
+
+        return productService.updateProduct(productRequest);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-        try {
-            productService.deleteProduct(id);
-            return ResponseEntity.noContent().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProduct(@PathVariable Long id) {
+
+        productService.deleteProduct(id);
     }
 
 }

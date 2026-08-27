@@ -2,50 +2,67 @@ package rs.ac.ni.pmf.rwa.estore.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import rs.ac.ni.pmf.rwa.estore.exception.ResourceNotFoundException;
+import rs.ac.ni.pmf.rwa.estore.mapper.ProductMapper;
+import rs.ac.ni.pmf.rwa.estore.model.dto.request.ProductRequest;
+import rs.ac.ni.pmf.rwa.estore.model.dto.response.ProductResponse;
 import rs.ac.ni.pmf.rwa.estore.model.entity.ProductEntity;
 import rs.ac.ni.pmf.rwa.estore.repository.ProductRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ProductService {
 
+    //TODO zameni entity
     private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
 
-    public List<ProductEntity> getAllProducts() {
-        return productRepository.findAll();
+    public List<ProductResponse> getAllProducts() {
+
+        return productRepository.findAll().stream().map(productMapper::toResponse).toList();
     }
 
-    public Optional<ProductEntity> getProductById(Long id) {
-        return productRepository.findById(id);
+    public ProductResponse getProductById(Long id) {
+
+        final ProductEntity product = productRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Product not found with id: " + id));
+
+        return productMapper.toResponse(product);
     }
 
-    public Optional<ProductEntity> getProductByBarcode(String barcode) {
-        return productRepository.findByBarcode(barcode);
+    public ProductResponse getProductByBarcode(String barcode) {
+
+        final ProductEntity product = productRepository.findByBarcode(barcode).orElseThrow(()->new ResourceNotFoundException("Product not found with barcode: " + barcode));
+
+        return productMapper.toResponse(product);
     }
 
-    public ProductEntity createProduct(ProductEntity product) {
-        return productRepository.save(product);
+    public ProductResponse createProduct(ProductRequest product) {
+
+        final ProductEntity productEntity = productMapper.toEntity(product);
+
+        return productMapper.toResponse(productRepository.save(productEntity));
     }
 
-    public ProductEntity updateProduct(Long id, ProductEntity productDetails) {
-        ProductEntity product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Proizvod sa id " + id + " nije pronađen"));
+    public ProductResponse updateProduct(ProductRequest  productRequest) {
 
-        product.setName(productDetails.getName());
-        product.setType(productDetails.getType());
-        product.setDescription(productDetails.getDescription());
-        product.setBarcode(productDetails.getBarcode());
+        ProductEntity existing = productRepository.findById(productRequest.getId())
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + productRequest.getId()));
 
-        return productRepository.save(product);
+        existing.setName(productRequest.getName());
+        existing.setType(productRequest.getType());
+        existing.setDescription(productRequest.getDescription());
+        existing.setBarcode(productRequest.getBarcode());
+
+        return productMapper.toResponse(productRepository.save(existing));
     }
 
     public void deleteProduct(Long id) {
-        ProductEntity product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Proizvod sa id " + id + " nije pronađen"));
-        productRepository.delete(product);
+
+        final ProductEntity existing = productRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Product not found with id: " + id));
+
+        productRepository.delete(existing);
     }
 
 }

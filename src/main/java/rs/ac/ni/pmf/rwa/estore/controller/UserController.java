@@ -37,7 +37,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserResponse createUser(@RequestBody UserRequest userRequest) {
+    public UserResponse createUser(@RequestBody @Valid UserRequest userRequest) {
         return userService.createUser(userRequest);
     }
 
@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}/password")
-    public ResponseEntity<String> changePassword(@PathVariable Long id, @RequestBody UpdatePasswordRequest updatePasswordRequest) {
+    public ResponseEntity<String> changePassword(@PathVariable Long id, @RequestBody @Valid UpdatePasswordRequest updatePasswordRequest) {
         try {
             userService.changePassword(id, updatePasswordRequest);
             return ResponseEntity.ok("Password updated successfully");

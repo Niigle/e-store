@@ -1,6 +1,7 @@
 package rs.ac.ni.pmf.rwa.estore.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import rs.ac.ni.pmf.rwa.estore.exception.ResourceNotFoundException;
@@ -12,10 +13,12 @@ import rs.ac.ni.pmf.rwa.estore.model.dto.response.UserResponse;
 import rs.ac.ni.pmf.rwa.estore.model.entity.UserEntity;
 import rs.ac.ni.pmf.rwa.estore.repository.UserRepository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
 
     private final UserRepository userRepository;
@@ -67,6 +70,9 @@ public class UserService {
 
         user.setPassword(passwordEncoder.encode(updatePasswordRequest.getNewPassword()));
         userRepository.save(user);
+
+        Timestamp timestamp =  new Timestamp(System.currentTimeMillis());
+        log.info("Password changed for user with id: " + id + "at timestamp: " + timestamp);
     }
 
     public void deleteUser(Long id) {

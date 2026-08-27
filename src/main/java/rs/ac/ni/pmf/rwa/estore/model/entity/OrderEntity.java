@@ -25,7 +25,10 @@ public class OrderEntity {
     private UserEntity user;
 
     @Column(name = "total", precision = 10, scale = 2, nullable = false)
-    private BigDecimal total;
+    private BigDecimal total; //totalPrice
+
+    @Column(name = "status", nullable = false)
+    private String status;
 
     @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
