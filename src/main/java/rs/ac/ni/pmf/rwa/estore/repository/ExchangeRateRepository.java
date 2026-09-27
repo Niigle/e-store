@@ -1,5 +1,7 @@
 package rs.ac.ni.pmf.rwa.estore.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import rs.ac.ni.pmf.rwa.estore.model.entity.ExchangeRateEntity;
 
@@ -9,7 +11,8 @@ import java.util.Optional;
 
 public interface ExchangeRateRepository extends JpaRepository<ExchangeRateEntity, Long> {
 
-    List<ExchangeRateEntity> findByCurrencyFromAndCurrencyTo(String currencyFrom, String currencyTo);
+    Page<ExchangeRateEntity> findByCurrencyFromAndCurrencyTo(String currencyFrom, String currencyTo, Pageable pageable);
+
     Optional<ExchangeRateEntity> findByCurrencyFromAndCurrencyToAndDateOf(String currencyFrom, String currencyTo, LocalDate dateOf);
     List<ExchangeRateEntity> findByDateOf(LocalDate dateOf);
 

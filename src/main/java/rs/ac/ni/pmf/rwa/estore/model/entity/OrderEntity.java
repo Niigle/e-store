@@ -30,7 +30,7 @@ public class OrderEntity {
     @Column(name = "status", nullable = false)
     private String status;
 
-    @Column(name = "created_at", insertable = false, updatable = false)
-    private LocalDateTime createdAt;
+    @Column(name = "created_on", insertable = false, updatable = false)
+    private LocalDateTime createdOn;
 
 }

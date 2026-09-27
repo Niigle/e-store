@@ -2,6 +2,7 @@ package rs.ac.ni.pmf.rwa.estore.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -25,7 +26,7 @@ public class DailyTurnoverLogEntity {
     private Long storeId;
 
     @Column(name = "total_turnover", nullable = false)
-    private Integer totalTurnover;
+    private BigDecimal totalTurnover;
 
     @Column(name = "unique_purchase_count", nullable = false)
     private Integer uniquePurchaseCount;

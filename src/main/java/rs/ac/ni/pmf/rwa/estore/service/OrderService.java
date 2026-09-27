@@ -1,5 +1,7 @@
 package rs.ac.ni.pmf.rwa.estore.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -45,7 +47,7 @@ public class OrderService {
         }
 
         StoreProductEntity storeProduct = storeProductRepository.findById(addToOrderRequest.getStoreProductId())
-                .orElseThrow(() -> new RuntimeException("Product with id " + addToOrderRequest.getStoreProductId() + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id " + addToOrderRequest.getStoreProductId() + " not found"));
 
         if (storeProduct.getStock() < addToOrderRequest.getQuantity()) {
             throw new IllegalStateException("Not enough in stock (on stock: " + storeProduct.getStock() + ")");
@@ -88,11 +90,33 @@ public class OrderService {
         //return buildOrderResponse(orderEntity);
     }
 
+    public Page<OrderResponse> getOrderHistory(Long userId, Pageable pageable) {
+
+        //TODO & status=COMPLETED?
+        Page<OrderEntity> orderEntityPage = orderRepository.findByUserId(userId, pageable);
+
+        if (orderEntityPage.isEmpty()) {
+            throw new ResourceNotFoundException("Order for user " + userId + " is empty");
+        }
+
+        Page<OrderResponse> orderResponsePage = orderEntityPage.map(orderEntity -> {
+            List<OrderItemEntity> orderItemEntities = orderItemRepository.findByOrderId(orderEntity.getId());
+
+            List<OrderItemResponse> orderItemResponses = orderItemEntities.stream()
+                    .map(orderItemMapper::toOrderItemResponse)
+                    .toList();
+
+            return orderMapper.toOrderResponse(orderEntity);
+        });
+
+        return orderResponsePage;
+    }
+
     @Transactional(readOnly = true)
     public OrderResponse getOrder(Long userId) {
 
         OrderEntity orderEntity = orderRepository.findByUserIdAndStatus(userId, STATUS_IN_PROGRESS)
-                .orElseThrow(() -> new RuntimeException("Order for user " + userId + " is empty"));
+                .orElseThrow(() -> new ResourceNotFoundException("Order for user " + userId + " is empty"));
 
         List<OrderItemEntity> orderItemEntities = orderItemRepository.findByOrderId(orderEntity.getId());
 
@@ -115,7 +139,7 @@ public class OrderService {
     @Transactional
     public void removeItem(Long orderItemId) {
         OrderItemEntity orderItemEntity = orderItemRepository.findById(orderItemId)
-                .orElseThrow(() -> new RuntimeException("Order item id " + orderItemId + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Order item id " + orderItemId + " not found"));
 
         OrderEntity orderEntity = orderItemEntity.getOrder();
         orderItemRepository.delete(orderItemEntity);
@@ -125,7 +149,7 @@ public class OrderService {
     @Transactional
     public OrderResponse checkout(Long userId) {
         OrderEntity orderEntity = orderRepository.findByUserIdAndStatus(userId, STATUS_IN_PROGRESS)
-                .orElseThrow(() -> new RuntimeException("Order for user: " + userId + " is empty"));
+                .orElseThrow(() -> new ResourceNotFoundException("Order for user: " + userId + " is empty"));
 
         List<OrderItemEntity> items = orderItemRepository.findByOrderId(orderEntity.getId());
         if (items.isEmpty()) {
@@ -159,7 +183,7 @@ public class OrderService {
     private OrderEntity createNewOrder(Long userId) {
 
         UserEntity user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User id " + userId + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User id " + userId + " not found"));
 
         OrderEntity newOrderEntity = OrderEntity.builder()
                 .user(user)

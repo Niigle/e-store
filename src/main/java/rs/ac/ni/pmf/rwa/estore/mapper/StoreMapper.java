@@ -13,10 +13,10 @@ public class StoreMapper {
         return StoreResponse.builder()
                 .id(storeEntity.getId())
                 .name(storeEntity.getName())
-                .type(storeEntity.getType())
+                //.categoryId(storeEntity.getCategoryId())
                 .address(storeEntity.getAddress())
                 .phone(storeEntity.getPhone())
-                .createdAt(storeEntity.getCreatedAt())
+                .createdOn(storeEntity.getCreatedOn())
                 .modifiedOn(storeEntity.getModifiedOn())
                 .isActive(storeEntity.getIsActive())
                 .build();
@@ -26,7 +26,7 @@ public class StoreMapper {
 
         return StoreEntity.builder()
                 .name(storeRequest.getName())
-                .type(storeRequest.getType())
+                //.categoryId(storeRequest.getCategoryId())
                 .address(storeRequest.getAddress())
                 .phone(storeRequest.getPhone())
                 .build();

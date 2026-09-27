@@ -25,15 +25,14 @@ public class ProductEntity {
     @Column(name = "type", length = 50, nullable = false)
     private String type;
 
-    @Lob
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "barcode", length = 50, unique = true)
     private String barcode;
 
-    @Column(name = "created_at", insertable = false, updatable = false)
-    private LocalDateTime createdAt;
+    @Column(name = "created_on", insertable = false, updatable = false)
+    private LocalDateTime createdOn;
 
     @Column(name = "modified_on", insertable = false, updatable = false)
     private LocalDateTime modifiedOn;

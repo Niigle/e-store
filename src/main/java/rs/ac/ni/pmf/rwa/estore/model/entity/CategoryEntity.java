@@ -20,8 +20,7 @@ public class CategoryEntity {
     @Column(name = "name", length = 100, nullable = false)
     private String name;
 
-    @Lob
-    @Column(name = "description", columnDefinition = "TEXT")
+    @Column(name = "description")
     private String description;
 
 }

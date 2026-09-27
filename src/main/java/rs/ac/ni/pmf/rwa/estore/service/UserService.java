@@ -2,6 +2,8 @@ package rs.ac.ni.pmf.rwa.estore.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import rs.ac.ni.pmf.rwa.estore.exception.ResourceNotFoundException;
@@ -26,10 +28,8 @@ public class UserService {
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public List<UserResponse> getAllUsers() {
-        return userRepository.findAll().stream()
-                .map(userMapper::toResponse)
-                .toList();
+    public Page<UserResponse> getAllUsers(Pageable pageable) {
+        return userRepository.findAll(pageable).map(userMapper::toResponse);
     }
 
     public UserResponse getUserById(Long id) {
@@ -48,7 +48,7 @@ public class UserService {
 
     public UserResponse updateUser(Long id, UserDto userDto) {
         UserEntity userEntity = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Korisnik sa id " + id + " nije pr onađen"));
+                .orElseThrow(() -> new ResourceNotFoundException("USer with id " + id + " not found"));
 
 
         userEntity.setFirstName(userDto.getFirstName());
@@ -62,10 +62,10 @@ public class UserService {
 
     public void changePassword(Long id, UpdatePasswordRequest updatePasswordRequest) {
         UserEntity user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Korisnik sa id " + id + " nije pronađen"));
+                .orElseThrow(() -> new ResourceNotFoundException("USer with id " + id + " not found"));
 
         if (!passwordEncoder.matches(updatePasswordRequest.getOldPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("Stara lozinka nije ispravna");
+            throw new IllegalArgumentException("Old password doesn't match old password");
         }
 
         user.setPassword(passwordEncoder.encode(updatePasswordRequest.getNewPassword()));
@@ -77,7 +77,7 @@ public class UserService {
 
     public void deleteUser(Long id) {
         UserEntity userEntity = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Korisnik sa id " + id + " nije pronađen"));
+                .orElseThrow(() -> new ResourceNotFoundException("USer with id " + id + " not found"));
         userRepository.delete(userEntity);
     }
 }

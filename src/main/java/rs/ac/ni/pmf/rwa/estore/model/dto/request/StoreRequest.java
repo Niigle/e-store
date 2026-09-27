@@ -11,7 +11,8 @@ public class StoreRequest {
 
     private String name;
     private String address;
-    private String type;
+    private Long categoryId;
+    private Long managerId;
     private String phone;
-    private Integer isActive;
+    private Boolean isActive;
 }

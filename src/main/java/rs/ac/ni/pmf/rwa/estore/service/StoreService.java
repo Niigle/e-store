@@ -1,7 +1,7 @@
 package rs.ac.ni.pmf.rwa.estore.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;import org.springframework.data.domain.Pageable;import org.springframework.stereotype.Service;
 import rs.ac.ni.pmf.rwa.estore.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.rwa.estore.mapper.StoreMapper;
 import rs.ac.ni.pmf.rwa.estore.model.dto.request.StoreRequest;
@@ -21,8 +21,8 @@ public class StoreService {
     private final UserRepository userRepository;
     private final StoreMapper storeMapper;
 
-    public List<StoreResponse> getAllStores() {
-        return storeRepository.findAll().stream().map(storeMapper::toResponse).toList();
+    public Page<StoreResponse> getAllStores(Pageable pageable) {
+        return storeRepository.findAll(pageable).map(storeMapper::toResponse);
     }
 
     public List<StoreResponse> getActiveStores() {
@@ -35,18 +35,18 @@ public class StoreService {
 
     public StoreResponse createStore(StoreEntity storeRequest, Long managerId) {
         UserEntity manager = userRepository.findById(managerId)
-                .orElseThrow(() -> new RuntimeException("Menadžer sa id " + managerId + " nije pronađen"));
-        storeRequest.setManager(manager);
+                .orElseThrow(() -> new ResourceNotFoundException("Menager with id " + managerId + " not found"));
+        storeRequest.setManagerId(manager);
         return storeMapper.toResponse(storeRepository.save(storeRequest));
     }
 
     public StoreResponse updateStore(Long id, StoreRequest storeRequest) {
         StoreEntity store = storeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Prodavnica sa id " + id + " nije pronađena"));
+                .orElseThrow(() -> new ResourceNotFoundException("Store with id " + id + " not found"));
 
         store.setName(storeRequest.getName());
         store.setAddress(storeRequest.getAddress());
-        store.setType(storeRequest.getType());
+        //store.setCategoryId(storeRequest.getCategoryId());
         store.setPhone(storeRequest.getPhone());
         store.setIsActive(storeRequest.getIsActive());
 
@@ -55,14 +55,17 @@ public class StoreService {
 
     public StoreResponse setActiveStatus(Long id, boolean active) {
         StoreEntity store = storeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Prodavnica sa id " + id + " nije pronađena"));
-        store.setIsActive(active ? 1 : 0);
+                .orElseThrow(() -> new ResourceNotFoundException("Store with id " + id + " not found"));
+
+        store.setIsActive(active ? true : false);
         return storeMapper.toResponse(storeRepository.save(store));
     }
 
     public void deleteStore(Long id) {
+
         StoreEntity store = storeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Prodavnica sa id " + id + " nije pronađena"));
+                .orElseThrow(() -> new ResourceNotFoundException("Store with id " + id + " not found"));
+
         storeRepository.delete(store);
     }
 }

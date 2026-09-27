@@ -25,21 +25,22 @@ public class StoreEntity {
     @Column(name = "address", length = 100, nullable = false)
     private String address;
 
-    @Column(name = "type", length = 50, nullable = false)
-    private String type;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name ="category_id")
+    private CategoryEntity categoryId;
 
     @Column(name = "phone", length = 100, nullable = false)
     private String phone;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "manager", nullable = false)
-    private UserEntity manager;
+    @JoinColumn(name = "manager_id", nullable = false)
+    private UserEntity managerId;
 
     @Column(name = "is_active")
-    private Integer isActive = 1;
+    private Boolean isActive = true;
 
-    @Column(name = "created_at", insertable = false, updatable = false)
-    private LocalDateTime createdAt;
+    @Column(name = "created_on", insertable = false, updatable = false)
+    private LocalDateTime createdOn;
 
     @Column(name = "modified_on", insertable = false, updatable = false)
     private LocalDateTime modifiedOn;

@@ -1,6 +1,9 @@
 package rs.ac.ni.pmf.rwa.estore.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import rs.ac.ni.pmf.rwa.estore.model.dto.request.StoreProductRequest;
@@ -17,8 +20,8 @@ public class StoreProductController {
     private final StoreProductService storeProductService;
 
     @GetMapping
-    public List<StoreProductResponse> getAll() {
-        return storeProductService.getAll();
+    public Page<StoreProductResponse> getAll(@PageableDefault(page = 0, size = 10, sort = "name") Pageable pageable) {
+        return storeProductService.getAll(pageable);
     }
 
     @GetMapping("/{id}")

@@ -1,7 +1,6 @@
 package rs.ac.ni.pmf.rwa.estore.model.dto.response;
 
 import lombok.*;
-import rs.ac.ni.pmf.rwa.estore.model.entity.UserEntity;
 
 import java.time.LocalDateTime;
 
@@ -16,8 +15,11 @@ public class StoreResponse {
     private String address;
     private String type;
     private String phone;
-    private Integer isActive;
-    private LocalDateTime createdAt;
+    //TODO
+    private Boolean isActive;
+    //private Category category;
+    private String managerId;
+    private LocalDateTime createdOn;
     private LocalDateTime modifiedOn;
 
 }

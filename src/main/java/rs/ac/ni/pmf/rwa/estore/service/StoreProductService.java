@@ -1,7 +1,7 @@
 package rs.ac.ni.pmf.rwa.estore.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;import org.springframework.data.domain.Pageable;import org.springframework.stereotype.Service;
 import rs.ac.ni.pmf.rwa.estore.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.rwa.estore.mapper.StoreProductMapper;
 import rs.ac.ni.pmf.rwa.estore.model.dto.request.StoreProductRequest;
@@ -24,8 +24,8 @@ public class StoreProductService {
     private final ProductRepository productRepository;
     private final StoreProductMapper storeProductMapper;
 
-    public List<StoreProductResponse> getAll() {
-        return storeProductRepository.findAll().stream().map(storeProductMapper::toResponse).toList();
+    public Page<StoreProductResponse> getAll(Pageable  pageable) {
+        return storeProductRepository.findAll(pageable).map(storeProductMapper::toResponse);
     }
 
     public StoreProductResponse getById(Long id) {
@@ -69,7 +69,7 @@ public class StoreProductService {
 
     public void delete(Long id) {
         StoreProductEntity storeProduct = storeProductRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("StoreProduct with id " + id + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("StoreProduct with id " + id + " not found"));
         storeProductRepository.delete(storeProduct);
     }
 }
