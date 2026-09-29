@@ -1,6 +1,7 @@
 package rs.ac.ni.pmf.rwa.estore.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class StoreService {
 
     private final StoreRepository storeRepository;
@@ -63,7 +65,11 @@ public class StoreService {
         StoreEntity store = storeMapper.toEntity(request);
         store.setManager(manager);
         store.setCategory(category);
-        return storeMapper.toResponse(storeRepository.save(store));
+
+        StoreResponse storeResponse = storeMapper.toResponse(storeRepository.save(store));
+
+        log.info("Store with id: {}created and name {}", store.getId(), store.getName());
+        return storeResponse;
     }
 
     /*public StoreResponse updateStore(Long id, StoreRequest storeRequest) {
@@ -95,7 +101,10 @@ public class StoreService {
 
         if (request.getIsActive() != null) store.setIsActive(request.getIsActive());
 
-        return storeMapper.toResponse(storeRepository.save(store));
+        StoreResponse storeResponse = storeMapper.toResponse(storeRepository.save(store));
+
+        log.info("Store with id: {}updated and name {}", store.getId(), store.getName());
+        return storeResponse;
     }
 
     public StoreResponse setActiveStatus(Long id, boolean active) {
@@ -103,7 +112,11 @@ public class StoreService {
                 .orElseThrow(() -> new ResourceNotFoundException("Store with id " + id + " not found"));
 
         store.setIsActive(active ? true : false);
-        return storeMapper.toResponse(storeRepository.save(store));
+
+        StoreResponse storeResponse = storeMapper.toResponse(storeRepository.save(store));
+
+        log.info("Store with id: {} and name {} activated", store.getId(), store.getName());
+        return storeResponse;
     }
 
     public void deleteStore(Long id) {
@@ -112,6 +125,8 @@ public class StoreService {
                 .orElseThrow(() -> new ResourceNotFoundException("Store with id " + id + " not found"));
 
         storeRepository.delete(store);
+
+        log.info("Store with id: {} and name {} deleted", store.getId(), store.getName());
     }
 
     public Page<StoreResponse> searchStores(String name, String address, Boolean isActive, Pageable pageable) {

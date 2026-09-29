@@ -43,7 +43,10 @@ public class UserService {
         final UserEntity userEntity = userMapper.toEntity(userRequest);
 
         userEntity.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-        return userMapper.toResponse(userRepository.save(userEntity));
+        UserResponse userResponse = userMapper.toResponse(userRepository.save(userEntity));
+
+        log.info("User with id: {} created", userEntity.getId());
+        return userResponse;
     }
 
     public UserResponse updateUser(Long id, UserDto userDto) {
@@ -71,13 +74,14 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(updatePasswordRequest.getNewPassword()));
         userRepository.save(user);
 
-        Timestamp timestamp =  new Timestamp(System.currentTimeMillis());
-        log.info("Password changed for user with id: " + id + "at timestamp: " + timestamp);
+        log.info("Password changed for user with id: {}", id);
     }
 
     public void deleteUser(Long id) {
         UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("USer with id " + id + " not found"));
         userRepository.delete(userEntity);
+
+        log.info("User with id: {} deleted", id);
     }
 }

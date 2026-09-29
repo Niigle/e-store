@@ -17,9 +17,10 @@ public class OpenApiConfig {
         final String securitySchemeName = "bearerAuth";
         return new OpenAPI()
                 .info(new Info()
-                        .title("API documentation")
+                        .title("E-Store REST API Documentation")
                         .version("1.0")
-                        .description("Swagger documentation"))
+                        .description("API documentation for the E-Store application (PMF Niš - RWA course). " +
+                                "Provides endpoints for managing stores, products, orders, exchange rates, and user authentication."))
                 .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
                 .components(new Components()
                         .addSecuritySchemes(securitySchemeName,
@@ -27,7 +28,8 @@ public class OpenApiConfig {
                                         .name(securitySchemeName)
                                         .type(SecurityScheme.Type.HTTP)
                                         .scheme("bearer")
-                                        .bearerFormat("JWT")));
+                                        .bearerFormat("JWT")
+                                        .description("Enter your JWT token in the format: `Bearer <token>`")));
     }
 
 }

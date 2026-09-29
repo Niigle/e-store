@@ -80,8 +80,10 @@ public class ErrorHandler {
 
         return ResponseEntity.status(ex.getStatusCode()).body(error);
     }
-/*
-    @ExceptionHandler(Exception.class)
+
+
+    //TODO
+/*    @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDto> handleGlobalException(
             Exception ex, WebRequest request) {
 

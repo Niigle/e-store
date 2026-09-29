@@ -1,6 +1,7 @@
 package rs.ac.ni.pmf.rwa.estore.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -22,6 +23,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ExchangeRateService {
 
     private final ExchangeRateRepository exchangeRateRepository;
@@ -76,7 +78,11 @@ public class ExchangeRateService {
         exchangeRate.setExchangeRate(exchangeRateRequest.getExchangeRate());
         exchangeRate.setDateOf(exchangeRateRequest.getDateOf());
 
-        return exchangeRateMapper.toResponse(exchangeRateRepository.save(exchangeRateMapper.toEntity(exchangeRateRequest)));
+        ExchangeRateResponse exchangeRateResponse = exchangeRateMapper.toResponse(exchangeRateRepository.save(exchangeRateMapper.toEntity(exchangeRateRequest)));
+        log.info("Exchange rate with id: {} for currency to {} and currencyFrom {} updated for dateOf {}",
+                exchangeRate.getId(), exchangeRate.getCurrencyTo(), exchangeRate.getCurrencyFrom(), exchangeRate.getDateOf());
+
+        return exchangeRateResponse;
     }
 
     @Caching(evict = {
@@ -91,6 +97,10 @@ public class ExchangeRateService {
                 .orElseThrow(() -> new ResourceNotFoundException("Exchange rate with id " + id + " not found"));
 
         exchangeRateRepository.delete(exchangeRate);
+
+        log.info("Exchange rate with id: {} for currency to {} and currencyFrom {} deleted for dateOf {}",
+                exchangeRate.getId(), exchangeRate.getCurrencyTo(), exchangeRate.getCurrencyFrom(), exchangeRate.getDateOf());
+
     }
 
 }

@@ -1,6 +1,7 @@
 package rs.ac.ni.pmf.rwa.estore.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import rs.ac.ni.pmf.rwa.estore.repository.specification.ProductSpecifications;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ProductService {
 
     private final ProductRepository productRepository;
@@ -43,7 +45,9 @@ public class ProductService {
 
         final ProductEntity productEntity = productMapper.toEntity(product);
 
-        return productMapper.toResponse(productRepository.save(productEntity));
+        ProductResponse productResponse = productMapper.toResponse(productRepository.save(productEntity));
+        log.info("New product with id: {} and name {} added", product.getId(), product.getName());
+        return productResponse;
     }
 
     public ProductResponse updateProduct(Long id, ProductRequest  productRequest) {
@@ -56,7 +60,9 @@ public class ProductService {
         existing.setDescription(productRequest.getDescription());
         existing.setBarcode(productRequest.getBarcode());
 
-        return productMapper.toResponse(productRepository.save(existing));
+        ProductResponse productResponse = productMapper.toResponse(productRepository.save(existing));
+        log.info("Product with id: {} and name {} uppdated", existing.getId(), existing.getName());
+        return productResponse;
     }
 
     public void deleteProduct(Long id) {
@@ -64,6 +70,8 @@ public class ProductService {
         final ProductEntity existing = productRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Product not found with id: " + id));
 
         productRepository.delete(existing);
+        log.info("Product with id: {} and name {} deleted", existing.getId(), existing.getName());
+
     }
 
     public Page<ProductResponse> searchProducts(String name, String type, Pageable pageable) {

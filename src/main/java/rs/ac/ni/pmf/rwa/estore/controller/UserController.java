@@ -12,6 +12,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import rs.ac.ni.pmf.rwa.estore.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.rwa.estore.model.dto.UserDto;
 import rs.ac.ni.pmf.rwa.estore.model.dto.request.UserRequest;
 import rs.ac.ni.pmf.rwa.estore.model.dto.request.UpdatePasswordRequest;
@@ -85,7 +86,7 @@ public class UserController {
             return ResponseEntity.ok("Password updated successfully");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        } catch (RuntimeException e) {
+        } catch (ResourceNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
     }

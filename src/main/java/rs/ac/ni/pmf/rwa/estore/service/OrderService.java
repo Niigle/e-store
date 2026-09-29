@@ -181,11 +181,17 @@ public class OrderService {
             throw new IllegalStateException("Order is empty");
         }
 
+        log.info("Initiating checkout process for user ID: {}", userId);
+
         for (OrderItemEntity item : items) {
 
             StoreProductEntity storeProduct = item.getStoreProduct();
 
             if (storeProduct.getStock() < item.getQuantity()) {
+
+                log.warn("Checkout failed for user ID: {}. Insufficient stock for product ID: {} (Requested: {}, Available: {})",
+                        userId, storeProduct.getId(), item.getQuantity(), storeProduct.getStock());
+
                 throw new IllegalStateException("Not enoguh product: " + storeProduct.getName() + "  in stock.");
             }
         }
@@ -213,10 +219,11 @@ public class OrderService {
             }
         });
 
-        Timestamp timestamp =  new Timestamp(System.currentTimeMillis());
-        log.info("Order completed for user: " + userId + "at timestamp: " + timestamp + ". Order id: " + orderId);
+        OrderResponse orderResponse = orderMapper.toOrderResponse(orderEntity);
 
-        return orderMapper.toOrderResponse(orderEntity);
+        log.info("Order completed for user: {}. Order id: {}", userId, orderId);
+
+        return orderResponse;
         //return buildOrderResponse(orderEntity);
     }
 
@@ -231,7 +238,10 @@ public class OrderService {
                 .status(STATUS_IN_PROGRESS)
                 .build();
 
-        return orderRepository.save(newOrderEntity);
+        OrderEntity orderEntity = orderRepository.save(newOrderEntity);
+        log.info("New order for user: {} created, order id: {}", userId, orderEntity.getId());
+
+        return orderEntity;
     }
 
     private void recalculateTotal(OrderEntity orderEntity) {

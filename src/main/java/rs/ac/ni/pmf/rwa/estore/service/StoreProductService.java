@@ -36,7 +36,7 @@ public class StoreProductService {
     private final ProductRepository productRepository;
     private final StoreProductMapper storeProductMapper;
 
-    private static final Logger log = LoggerFactory.getLogger(OrderService.class);
+    private static final Logger log = LoggerFactory.getLogger(StoreProductService.class);
 
     //TODO
     @Cacheable(value = "storeProductsAll", key = "#pageable.pageNumber + '_' + #pageable.pageSize + '_' + #pageable.sort")
@@ -72,19 +72,20 @@ public class StoreProductService {
     public StoreProductResponse create(Long storeId, Long productId, StoreProductRequest storeProductRequest) {
 
         StoreEntity store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new RuntimeException("Store with id " + storeId + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Store not found with id: " + storeId));
 
         ProductEntity product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product with id " + productId + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id " + productId + " not found"));
 
 
         final StoreProductEntity storeProductEntity = storeProductMapper.toEntity(storeProductRequest);
         storeProductEntity.setProduct(product);
         storeProductEntity.setStore(store);
 
-        log.info("Store product created: {}", storeProductEntity);
+        StoreProductResponse storeProductResponse = storeProductMapper.toResponse(storeProductRepository.save(storeProductEntity));
+        log.info("Store product ti id: {} created", storeProductEntity.getId());
 
-        return storeProductMapper.toResponse(storeProductRepository.save(storeProductEntity));
+        return storeProductResponse;
     }
 
     //TODO id iz requesta?
@@ -111,9 +112,11 @@ public class StoreProductService {
             storeProduct.setStock(storeProductRequest.getStock());
         }
 
-        log.info("Update price and stock for product with id {}", id);
+        StoreProductResponse storeProductResponse = storeProductMapper.toResponse(storeProductRepository.save(storeProduct));
+        log.info("Update price and stock for store's product with id {} , from store {} and is product {}",
+                id, storeProduct.getStore().getId(), storeProduct.getProduct().getId());
 
-        return storeProductMapper.toResponse(storeProductRepository.save(storeProduct));
+        return storeProductResponse;
     }
 
     @Caching(evict = {
@@ -127,9 +130,8 @@ public class StoreProductService {
         StoreProductEntity storeProduct = storeProductRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("StoreProduct with id " + id + " not found"));
 
-        log.info("Delete product with id {}", id);
-
         storeProductRepository.delete(storeProduct);
+        log.info("Delete store's product with id {}", id);
     }
 
 
