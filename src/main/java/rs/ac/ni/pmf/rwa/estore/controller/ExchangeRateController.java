@@ -1,6 +1,7 @@
 package rs.ac.ni.pmf.rwa.estore.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -10,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import rs.ac.ni.pmf.rwa.estore.model.dto.request.ExchangeRateRequest;
 import rs.ac.ni.pmf.rwa.estore.model.dto.response.ExchangeRateResponse;
 import rs.ac.ni.pmf.rwa.estore.model.entity.ExchangeRateEntity;
 import rs.ac.ni.pmf.rwa.estore.service.ExchangeRateService;
@@ -56,15 +58,15 @@ public class ExchangeRateController {
     }
 
     @PostMapping
-    public ExchangeRateResponse createExchangeRate(@RequestBody ExchangeRateEntity exchangeRate) {
+    public ExchangeRateResponse createExchangeRate(@RequestBody @Valid ExchangeRateRequest exchangeRateRequest) {
 
-        return exchangeRateService.createExchangeRate(exchangeRate);
+        return exchangeRateService.createExchangeRate(exchangeRateRequest);
     }
 
     @PutMapping("/{id}")
-    public ExchangeRateResponse updateExchangeRate(@PathVariable Long id, @RequestBody ExchangeRateEntity details) {
+    public ExchangeRateResponse updateExchangeRate(@PathVariable Long id, @RequestBody @Valid ExchangeRateRequest exchangeRateRequest) {
 
-        return exchangeRateService.updateExchangeRate(id, details);
+        return exchangeRateService.updateExchangeRate(id, exchangeRateRequest);
     }
 
     @DeleteMapping("/{id}")

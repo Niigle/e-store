@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Value
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 @AllArgsConstructor()
 public class OrderResponse {

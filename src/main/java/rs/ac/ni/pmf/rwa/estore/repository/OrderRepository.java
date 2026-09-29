@@ -12,4 +12,5 @@ public interface OrderRepository extends JpaRepositoryImplementation<OrderEntity
     Optional<OrderEntity> findByUserIdAndStatus(Long userId, String status);
 
     Page<OrderEntity> findByUserId(Long userId, Pageable pageable);
+    Integer countByStatus(String status);
 }

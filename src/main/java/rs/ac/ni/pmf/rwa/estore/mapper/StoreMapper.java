@@ -22,14 +22,12 @@ public class StoreMapper {
                 .build();
     }
 
-    public StoreEntity toEntity(final StoreRequest storeRequest) {
-
-        return StoreEntity.builder()
-                .name(storeRequest.getName())
-                //.categoryId(storeRequest.getCategoryId())
-                .address(storeRequest.getAddress())
-                .phone(storeRequest.getPhone())
-                .build();
-
+    public StoreEntity toEntity(final StoreRequest r) {
+        StoreEntity.StoreEntityBuilder b = StoreEntity.builder()
+                .name(r.getName())
+                .address(r.getAddress())
+                .phone(r.getPhone());
+        if (r.getIsActive() != null) b.isActive(r.getIsActive());
+        return b.build();
     }
 }

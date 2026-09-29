@@ -26,16 +26,17 @@ public class StoreEntity {
     private String address;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name ="category_id")
-    private CategoryEntity categoryId;
+    @JoinColumn(name = "category_id", nullable = false)
+    private CategoryEntity category;
 
     @Column(name = "phone", length = 100, nullable = false)
     private String phone;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id", nullable = false)
-    private UserEntity managerId;
+    private UserEntity manager;
 
+    @Builder.Default
     @Column(name = "is_active")
     private Boolean isActive = true;
 

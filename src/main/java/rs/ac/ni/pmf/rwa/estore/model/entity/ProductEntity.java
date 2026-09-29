@@ -31,6 +31,9 @@ public class ProductEntity {
     @Column(name = "barcode", length = 50, unique = true)
     private String barcode;
 
+    @Column(name = "image", length = 255)
+    private String image;
+
     @Column(name = "created_on", insertable = false, updatable = false)
     private LocalDateTime createdOn;
 

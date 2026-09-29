@@ -18,15 +18,27 @@ public class UserDto {
 
     @NotBlank(message = "Username cannot be blank")
     String username;
-    String firstName;
-    String lastName;
-    String address;
-    String phone;
-    @Email(message = "Email is not valid")
-    String email;
 
+    @NotBlank(message = "firstName cannot be blank")
+    String firstName;
+
+    @NotBlank(message = "lastName cannot be blank")
+    String lastName;
+
+
+    @NotBlank(message = "address cannot be blank")
+    String address;
+
+
+    @NotBlank(message = "phone cannot be blank")
+    String phone;
+
+    @Email(message = "Email is not valid")
+    @NotBlank(message = "email cannot be blank")
+    String email;
+/*
     @Pattern(regexp = "^$|.*\\S.*", message = "Must not be blank if provided")
-    String phoneNumber;
+    String phoneNumber;*/
 
     @Builder.Default
     boolean enabled = true;

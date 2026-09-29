@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import rs.ac.ni.pmf.rwa.estore.model.dto.request.StoreRequest;
 import rs.ac.ni.pmf.rwa.estore.model.dto.response.StoreResponse;
-import rs.ac.ni.pmf.rwa.estore.model.entity.StoreEntity;
 import rs.ac.ni.pmf.rwa.estore.service.StoreService;
 
 import java.util.List;
@@ -36,31 +35,26 @@ public class StoreController {
         return storeService.getStoreById(id);
     }
 
+    //TODO storeRequest
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public StoreResponse createStore(
-            @RequestBody StoreEntity store,
-            @RequestParam Long managerId) {
-        return storeService.createStore(store, managerId);
+    public StoreResponse createStore(@RequestBody @Valid StoreRequest storeRequest
+            /*@RequestBody StoreEntity store,
+            @RequestParam Long managerId*/) {
+        return storeService.createStore(storeRequest);
     }
 
     //TODO
     @PutMapping("/{id}")
     public StoreResponse updateStore(@PathVariable Long id, @RequestBody @Valid final StoreRequest storeRequest) {
-        try {
-            return storeService.updateStore(id, storeRequest);
-        } catch (RuntimeException e) {
-            return null;//ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+
+        return storeService.updateStore(id, storeRequest);
     }
 
     @PutMapping("/{id}/active")
     public StoreResponse setActiveStatus(@PathVariable Long id, @RequestParam boolean active) {
-        try {
-            return storeService.setActiveStatus(id, active);
-        } catch (RuntimeException e) {
-            return null;//ResponseEntity.notFound().build();
-        }
+
+        return storeService.setActiveStatus(id, active);
     }
 
     @DeleteMapping("/{id}")
@@ -68,6 +62,16 @@ public class StoreController {
     public void deleteStore(@PathVariable Long id) {
 
         storeService.deleteStore(id);
+    }
+
+    @GetMapping("/search")
+    public Page<StoreResponse> searchStoreProducts(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String address,
+            @RequestParam(required = false) Boolean isActive,
+            @PageableDefault(page = 0, size = 10, sort = "name") Pageable pageable) {
+
+        return storeService.searchStores(name, address, isActive, pageable);
     }
 
 }

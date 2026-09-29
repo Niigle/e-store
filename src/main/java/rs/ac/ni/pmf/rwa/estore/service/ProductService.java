@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import rs.ac.ni.pmf.rwa.estore.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.rwa.estore.mapper.ProductMapper;
 import rs.ac.ni.pmf.rwa.estore.model.dto.request.ProductRequest;
@@ -16,7 +17,6 @@ import rs.ac.ni.pmf.rwa.estore.repository.specification.ProductSpecifications;
 @RequiredArgsConstructor
 public class ProductService {
 
-    //TODO zameni entity
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
@@ -46,10 +46,10 @@ public class ProductService {
         return productMapper.toResponse(productRepository.save(productEntity));
     }
 
-    public ProductResponse updateProduct(ProductRequest  productRequest) {
+    public ProductResponse updateProduct(Long id, ProductRequest  productRequest) {
 
-        ProductEntity existing = productRepository.findById(productRequest.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + productRequest.getId()));
+        ProductEntity existing = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
 
         existing.setName(productRequest.getName());
         existing.setType(productRequest.getType());

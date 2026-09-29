@@ -1,6 +1,7 @@
 package rs.ac.ni.pmf.rwa.estore.mapper;
 
 import org.springframework.stereotype.Component;
+import rs.ac.ni.pmf.rwa.estore.model.dto.request.ExchangeRateRequest;
 import rs.ac.ni.pmf.rwa.estore.model.dto.response.ExchangeRateResponse;
 import rs.ac.ni.pmf.rwa.estore.model.entity.ExchangeRateEntity;
 
@@ -17,7 +18,7 @@ public class ExchangeRateMapper {
                 .build();
 
     }
-/*
+
     public ExchangeRateEntity toEntity(ExchangeRateRequest exchangeRateDto) {
 
         return ExchangeRateEntity.builder()
@@ -26,6 +27,6 @@ public class ExchangeRateMapper {
                 .exchangeRate(exchangeRateDto.getExchangeRate())
                 .dateOf(exchangeRateDto.getDateOf())
                 .build();
-    }*/
+    }
 
 }

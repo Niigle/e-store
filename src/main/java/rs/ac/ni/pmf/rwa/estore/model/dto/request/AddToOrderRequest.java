@@ -1,6 +1,7 @@
 package rs.ac.ni.pmf.rwa.estore.model.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -13,15 +14,16 @@ public class AddToOrderRequest {
 
     private Long id;
 
-    @NotBlank
+    @NotNull(message = "userId is mandatory")
     private Long userId;
 
-    @NotBlank
+
+    @NotNull(message = "storeProductId is mandatory")
     private Long storeProductId;
 
-    @NotBlank
+    @NotNull(message = "quantity is mandatory")
     private Integer quantity;
 
-    @NotBlank
+    @NotNull(message = "price is mandatory")
     private BigDecimal priceAtPurchase;
 }

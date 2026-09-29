@@ -20,7 +20,7 @@ public class OrderController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public OrderResponse addToOrder(@RequestBody /*@Valid*/ AddToOrderRequest request) {
+    public OrderResponse addToOrder(@RequestBody @Valid AddToOrderRequest request) {
 
         return orderService.addToOrder(request);
     }

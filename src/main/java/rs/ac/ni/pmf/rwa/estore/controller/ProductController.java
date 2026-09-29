@@ -1,5 +1,6 @@
 package rs.ac.ni.pmf.rwa.estore.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -41,15 +42,15 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductResponse createProduct(@RequestBody ProductRequest  productRequest) {
+    public ProductResponse createProduct(@RequestBody @Valid ProductRequest  productRequest) {
 
         return productService.createProduct(productRequest);
     }
 
     @PutMapping("/{id}")
-    public ProductResponse updateProduct(@RequestBody ProductRequest  productRequest) {
+    public ProductResponse updateProduct(@PathVariable Long id, @Valid @RequestBody ProductRequest  productRequest) {
 
-        return productService.updateProduct(productRequest);
+        return productService.updateProduct(id, productRequest);
     }
 
     @DeleteMapping("/{id}")

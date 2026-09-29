@@ -1,13 +1,20 @@
 package rs.ac.ni.pmf.rwa.estore.service;
 
+import io.micrometer.core.instrument.MeterRegistry;
+import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import io.micrometer.core.instrument.Counter;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import rs.ac.ni.pmf.rwa.estore.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.rwa.estore.mapper.OrderItemMapper;
 import rs.ac.ni.pmf.rwa.estore.mapper.OrderMapper;
+import rs.ac.ni.pmf.rwa.estore.messaging.OrderEventProducer;
 import rs.ac.ni.pmf.rwa.estore.model.dto.request.AddToOrderRequest;
 import rs.ac.ni.pmf.rwa.estore.model.dto.response.OrderItemResponse;
 import rs.ac.ni.pmf.rwa.estore.model.dto.response.OrderResponse;
@@ -21,11 +28,13 @@ import rs.ac.ni.pmf.rwa.estore.repository.StoreProductRepository;
 import rs.ac.ni.pmf.rwa.estore.repository.UserRepository;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OrderService {
 
     private static final String STATUS_IN_PROGRESS = "IN_PROGRESS";
@@ -35,9 +44,20 @@ public class OrderService {
     private final OrderItemRepository orderItemRepository;
     private final StoreProductRepository storeProductRepository;
     private final UserRepository userRepository;
+    private final MeterRegistry meterRegistry;
+    private final OrderEventProducer orderEventProducer;
 
     private final OrderMapper orderMapper;
     private final OrderItemMapper orderItemMapper;
+
+    private Counter checkoutCounter;
+
+    @PostConstruct
+    public void init() {
+        this.checkoutCounter = Counter.builder("orders.checkout.count")
+                .description("Broj uspešno završenih kupovina")
+                .register(meterRegistry);
+    }
 
     @Transactional
     public OrderResponse addToOrder(AddToOrderRequest addToOrderRequest) {
@@ -123,10 +143,15 @@ public class OrderService {
         List<OrderItemResponse> orderItemResponse = orderItemEntities.stream().map(orderItemMapper::toOrderItemResponse).toList();
 
         //OrderResponse orderResponse = orderMapper.toOrderResponse(orderEntity);
-        OrderResponse orderResponse = OrderResponse.builder()
+        /*OrderResponse orderResponse = OrderResponse.builder()
                 .orderId(orderEntity.getId())
                 .totalPrice(orderEntity.getTotal())
                 .status(orderEntity.getStatus())
+                .items(orderItemResponse)
+                .build();*/
+
+        OrderResponse orderResponse = orderMapper.toOrderResponse(orderEntity)
+                .toBuilder()
                 .items(orderItemResponse)
                 .build();
 
@@ -175,6 +200,21 @@ public class OrderService {
         recalculateTotal(orderEntity);
         orderEntity.setStatus(STATUS_COMPLETED);
         orderRepository.save(orderEntity);
+
+        checkoutCounter.increment();
+
+        Long orderId = orderEntity.getId();
+        String email = orderEntity.getUser().getEmail();
+
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            @Override
+            public void afterCommit() {
+                orderEventProducer.publishOrderCompleted(orderId, email);
+            }
+        });
+
+        Timestamp timestamp =  new Timestamp(System.currentTimeMillis());
+        log.info("Order completed for user: " + userId + "at timestamp: " + timestamp + ". Order id: " + orderId);
 
         return orderMapper.toOrderResponse(orderEntity);
         //return buildOrderResponse(orderEntity);

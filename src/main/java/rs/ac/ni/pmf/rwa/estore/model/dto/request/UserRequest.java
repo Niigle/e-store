@@ -25,7 +25,11 @@ public class UserRequest {
 
     @Email(message = "Email is not valid")
     private String email;
+
+    @NotBlank(message = "address is mandatory.")
     private String address;
+
+    @NotBlank(message = "phone is mandatory.")
     private String phone;
     private String password;
 
