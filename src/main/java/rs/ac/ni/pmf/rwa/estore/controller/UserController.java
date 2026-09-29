@@ -10,16 +10,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import rs.ac.ni.pmf.rwa.estore.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.rwa.estore.model.dto.UserDto;
 import rs.ac.ni.pmf.rwa.estore.model.dto.request.UserRequest;
 import rs.ac.ni.pmf.rwa.estore.model.dto.request.UpdatePasswordRequest;
+import rs.ac.ni.pmf.rwa.estore.model.dto.response.UpdatePasswordResponse;
 import rs.ac.ni.pmf.rwa.estore.model.dto.response.UserResponse;
 import rs.ac.ni.pmf.rwa.estore.service.UserService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -56,18 +53,18 @@ public class UserController {
         return userService.updateUser(id, userDto);
     }
 
-    @PutMapping("/{id}/password")
+    @PutMapping("/password/{id}")
     @Operation(summary = "Update password", description = "Currently logged user password change.")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "password updated successfully",
+                    description = "Password updated successfully",
                     content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))
             ),
             @ApiResponse(
                     responseCode = "400",
-                    description = "Invalid request or wrong old password",
-                    content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))
+                    description = "Invalid request, wrong old password, or new password is identical to the old one",
+                    content = @Content
             ),
             @ApiResponse(
                     responseCode = "401",
@@ -80,15 +77,9 @@ public class UserController {
                     content = @Content
             )
     })
-    public ResponseEntity<String> changePassword(@PathVariable Long id, @RequestBody @Valid UpdatePasswordRequest updatePasswordRequest) {
-        try {
-            userService.changePassword(id, updatePasswordRequest);
-            return ResponseEntity.ok("Password updated successfully");
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
+    public UpdatePasswordResponse changePassword(@PathVariable Long id, @RequestBody @Valid UpdatePasswordRequest updatePasswordRequest) {
+        userService.changePassword(id, updatePasswordRequest);
+        return new UpdatePasswordResponse("Password updated successfully");
     }
 
     @DeleteMapping("/{id}")

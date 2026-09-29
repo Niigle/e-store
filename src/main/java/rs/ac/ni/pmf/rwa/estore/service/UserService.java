@@ -64,11 +64,16 @@ public class UserService {
     }
 
     public void changePassword(Long id, UpdatePasswordRequest updatePasswordRequest) {
+
+        if (updatePasswordRequest.getOldPassword().equals(updatePasswordRequest.getNewPassword())) {
+            throw new IllegalArgumentException("New password must be different from the old password.");
+        }
+
         UserEntity user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("USer with id " + id + " not found"));
 
         if (!passwordEncoder.matches(updatePasswordRequest.getOldPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("Old password doesn't match old password");
+            throw new IllegalArgumentException("Password in database doesn't match provided old password");
         }
 
         user.setPassword(passwordEncoder.encode(updatePasswordRequest.getNewPassword()));
