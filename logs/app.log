@@ -22465,3 +22465,181 @@ Caused by: java.net.ConnectException: Connection refused: getsockopt
 2026-09-29T22:23:51.488+02:00  INFO 23300 --- [e-store] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-09-29T22:23:51.492+02:00  INFO 23300 --- [e-store] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2026-09-29T22:23:51.497+02:00  INFO 23300 --- [e-store] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-09-29T22:30:31.528+02:00  INFO 8864 --- [e-store] [restartedMain] r.a.ni.pmf.rwa.estore.EStoreApplication  : Starting EStoreApplication using Java 26.0.2.1 with PID 8864 (C:\Users\Admin\Desktop\Prodavnica\RWA\e-store\target\classes started by Admin in C:\Users\Admin\Desktop\Prodavnica\RWA\e-store)
+2026-09-29T22:30:31.532+02:00  INFO 8864 --- [e-store] [restartedMain] r.a.ni.pmf.rwa.estore.EStoreApplication  : No active profile set, falling back to 1 default profile: "default"
+2026-09-29T22:30:31.588+02:00  INFO 8864 --- [e-store] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-09-29T22:30:31.589+02:00  INFO 8864 --- [e-store] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-09-29T22:30:32.873+02:00  INFO 8864 --- [e-store] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-29T22:30:32.969+02:00  INFO 8864 --- [e-store] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 85 ms. Found 8 JPA repository interfaces.
+2026-09-29T22:30:33.837+02:00  INFO 8864 --- [e-store] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-09-29T22:30:33.851+02:00  INFO 8864 --- [e-store] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-29T22:30:33.851+02:00  INFO 8864 --- [e-store] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-09-29T22:30:33.902+02:00  INFO 8864 --- [e-store] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2313 ms
+2026-09-29T22:30:34.413+02:00  INFO 8864 --- [e-store] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-29T22:30:34.586+02:00  INFO 8864 --- [e-store] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1388cd21
+2026-09-29T22:30:34.588+02:00  INFO 8864 --- [e-store] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-29T22:30:34.632+02:00  INFO 8864 --- [e-store] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/e_store?useSSL=false&serverTimezone=Europe/Belgrade&allowPublicKeyRetrieval=true (MySQL 9.1)
+2026-09-29T22:30:34.720+02:00  INFO 8864 --- [e-store] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.031s)
+2026-09-29T22:30:34.734+02:00  INFO 8864 --- [e-store] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema `e_store`: 2
+2026-09-29T22:30:34.739+02:00  INFO 8864 --- [e-store] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema `e_store` is up to date. No migration necessary.
+2026-09-29T22:30:34.843+02:00  INFO 8864 --- [e-store] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-09-29T22:30:34.926+02:00  INFO 8864 --- [e-store] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-09-29T22:30:35.393+02:00  INFO 8864 --- [e-store] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-29T22:30:35.496+02:00  INFO 8864 --- [e-store] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/e_store?useSSL=false&serverTimezone=Europe/Belgrade&allowPublicKeyRetrieval=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 9.1
+	Default catalog/schema: e_store/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-09-29T22:30:36.808+02:00  INFO 8864 --- [e-store] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-29T22:30:36.863+02:00  INFO 8864 --- [e-store] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-29T22:30:36.978+02:00  INFO 8864 --- [e-store] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-09-29T22:30:37.310+02:00  INFO 8864 --- [e-store] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailService
+2026-09-29T22:30:38.979+02:00  WARN 8864 --- [e-store] [restartedMain] i.m.c.i.b.cache.CaffeineCacheMetrics     : The cache 'storeProductsAll' is not recording statistics. No meters except 'cache.size' will be registered. Call 'Caffeine#recordStats()' prior to building the cache for metrics to be recorded.
+2026-09-29T22:30:38.981+02:00  WARN 8864 --- [e-store] [restartedMain] i.m.c.i.b.cache.CaffeineCacheMetrics     : The cache 'exchangeRates' is not recording statistics. No meters except 'cache.size' will be registered. Call 'Caffeine#recordStats()' prior to building the cache for metrics to be recorded.
+2026-09-29T22:30:38.982+02:00  WARN 8864 --- [e-store] [restartedMain] i.m.c.i.b.cache.CaffeineCacheMetrics     : The cache 'storeProductsByProduct' is not recording statistics. No meters except 'cache.size' will be registered. Call 'Caffeine#recordStats()' prior to building the cache for metrics to be recorded.
+2026-09-29T22:30:38.982+02:00  WARN 8864 --- [e-store] [restartedMain] i.m.c.i.b.cache.CaffeineCacheMetrics     : The cache 'exchangeRatesById' is not recording statistics. No meters except 'cache.size' will be registered. Call 'Caffeine#recordStats()' prior to building the cache for metrics to be recorded.
+2026-09-29T22:30:38.982+02:00  WARN 8864 --- [e-store] [restartedMain] i.m.c.i.b.cache.CaffeineCacheMetrics     : The cache 'users' is not recording statistics. No meters except 'cache.size' will be registered. Call 'Caffeine#recordStats()' prior to building the cache for metrics to be recorded.
+2026-09-29T22:30:38.982+02:00  WARN 8864 --- [e-store] [restartedMain] i.m.c.i.b.cache.CaffeineCacheMetrics     : The cache 'storeProductsById' is not recording statistics. No meters except 'cache.size' will be registered. Call 'Caffeine#recordStats()' prior to building the cache for metrics to be recorded.
+2026-09-29T22:30:38.982+02:00  WARN 8864 --- [e-store] [restartedMain] i.m.c.i.b.cache.CaffeineCacheMetrics     : The cache 'exchangeRatesDate' is not recording statistics. No meters except 'cache.size' will be registered. Call 'Caffeine#recordStats()' prior to building the cache for metrics to be recorded.
+2026-09-29T22:30:38.983+02:00  WARN 8864 --- [e-store] [restartedMain] i.m.c.i.b.cache.CaffeineCacheMetrics     : The cache 'storeProductsByStore' is not recording statistics. No meters except 'cache.size' will be registered. Call 'Caffeine#recordStats()' prior to building the cache for metrics to be recorded.
+2026-09-29T22:30:38.983+02:00  WARN 8864 --- [e-store] [restartedMain] i.m.c.i.b.cache.CaffeineCacheMetrics     : The cache 'exchangeRatesList' is not recording statistics. No meters except 'cache.size' will be registered. Call 'Caffeine#recordStats()' prior to building the cache for metrics to be recorded.
+2026-09-29T22:30:39.131+02:00  INFO 8864 --- [e-store] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-09-29T22:30:39.312+02:00  INFO 8864 --- [e-store] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-09-29T22:30:39.325+02:00  INFO 8864 --- [e-store] [restartedMain] r.a.ni.pmf.rwa.estore.EStoreApplication  : Started EStoreApplication in 8.302 seconds (process running for 9.367)
+2026-09-29T22:30:39.336+02:00  WARN 8864 --- [e-store] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-09-29T22:30:39.337+02:00  WARN 8864 --- [e-store] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-09-29T22:30:39.687+02:00  INFO 8864 --- [e-store] [RMI TCP Connection(3)-192.168.0.30] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-29T22:30:39.687+02:00  INFO 8864 --- [e-store] [RMI TCP Connection(3)-192.168.0.30] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-29T22:30:39.690+02:00  INFO 8864 --- [e-store] [RMI TCP Connection(3)-192.168.0.30] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-09-29T22:30:40.117+02:00  INFO 8864 --- [e-store] [RMI TCP Connection(2)-192.168.0.30] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2026-09-29T22:30:40.132+02:00  WARN 8864 --- [e-store] [RMI TCP Connection(2)-192.168.0.30] o.s.b.amqp.health.RabbitHealthIndicator  : Rabbit health check failed
+
+org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: getsockopt
+	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:60) ~[spring-rabbit-4.1.0.jar:4.1.0]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:629) ~[spring-rabbit-4.1.0.jar:4.1.0]
+	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:746) ~[spring-rabbit-4.1.0.jar:4.1.0]
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:256) ~[spring-rabbit-4.1.0.jar:4.1.0]
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.doExecute(RabbitTemplate.java:2239) ~[spring-rabbit-4.1.0.jar:4.1.0]
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2211) ~[spring-rabbit-4.1.0.jar:4.1.0]
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2191) ~[spring-rabbit-4.1.0.jar:4.1.0]
+	at org.springframework.boot.amqp.health.RabbitHealthIndicator.getVersion(RabbitHealthIndicator.java:54) ~[spring-boot-amqp-4.1.0.jar:4.1.0]
+	at org.springframework.boot.amqp.health.RabbitHealthIndicator.doHealthCheck(RabbitHealthIndicator.java:47) ~[spring-boot-amqp-4.1.0.jar:4.1.0]
+	at org.springframework.boot.health.contributor.AbstractHealthIndicator.health(AbstractHealthIndicator.java:80) ~[spring-boot-health-4.1.0.jar:4.1.0]
+	at org.springframework.boot.health.contributor.HealthIndicator.health(HealthIndicator.java:37) ~[spring-boot-health-4.1.0.jar:4.1.0]
+	at org.springframework.boot.health.actuate.endpoint.Contributor$Blocking.getDescriptor(Contributor.java:148) ~[spring-boot-health-4.1.0.jar:4.1.0]
+	at org.springframework.boot.health.actuate.endpoint.Contributor$Blocking.getDescriptor(Contributor.java:126) ~[spring-boot-health-4.1.0.jar:4.1.0]
+	at org.springframework.boot.health.actuate.endpoint.HealthEndpointSupport.getDescriptorAndLogIfSlow(HealthEndpointSupport.java:172) ~[spring-boot-health-4.1.0.jar:4.1.0]
+	at org.springframework.boot.health.actuate.endpoint.HealthEndpointSupport.getDescriptor(HealthEndpointSupport.java:145) ~[spring-boot-health-4.1.0.jar:4.1.0]
+	at org.springframework.boot.health.actuate.endpoint.HealthEndpointSupport.getAggregateDescriptor(HealthEndpointSupport.java:157) ~[spring-boot-health-4.1.0.jar:4.1.0]
+	at org.springframework.boot.health.actuate.endpoint.HealthEndpointSupport.getDescriptor(HealthEndpointSupport.java:141) ~[spring-boot-health-4.1.0.jar:4.1.0]
+	at org.springframework.boot.health.actuate.endpoint.HealthEndpointSupport.getResult(HealthEndpointSupport.java:110) ~[spring-boot-health-4.1.0.jar:4.1.0]
+	at org.springframework.boot.health.actuate.endpoint.HealthEndpointSupport.getResult(HealthEndpointSupport.java:82) ~[spring-boot-health-4.1.0.jar:4.1.0]
+	at org.springframework.boot.health.actuate.endpoint.HealthEndpoint.health(HealthEndpoint.java:80) ~[spring-boot-health-4.1.0.jar:4.1.0]
+	at org.springframework.boot.health.actuate.endpoint.HealthEndpoint.health(HealthEndpoint.java:70) ~[spring-boot-health-4.1.0.jar:4.1.0]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+	at org.springframework.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:281) ~[spring-core-7.0.8.jar:7.0.8]
+	at org.springframework.boot.actuate.endpoint.invoke.reflect.ReflectiveOperationInvoker.invoke(ReflectiveOperationInvoker.java:76) ~[spring-boot-actuator-4.1.0.jar:4.1.0]
+	at org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation.invoke(AbstractDiscoveredOperation.java:62) ~[spring-boot-actuator-4.1.0.jar:4.1.0]
+	at org.springframework.boot.actuate.endpoint.jmx.EndpointMBean.invoke(EndpointMBean.java:127) ~[spring-boot-actuator-4.1.0.jar:4.1.0]
+	at org.springframework.boot.actuate.endpoint.jmx.EndpointMBean.invoke(EndpointMBean.java:99) ~[spring-boot-actuator-4.1.0.jar:4.1.0]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:633) ~[na:na]
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:790) ~[na:na]
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doOperationInner(RMIConnectionImpl.java:1401) ~[na:na]
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doOperation(RMIConnectionImpl.java:1327) ~[na:na]
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.invoke(RMIConnectionImpl.java:790) ~[na:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:351) ~[na:na]
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:166) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:543) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:744) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:623) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1516) ~[na:na]
+Caused by: java.net.ConnectException: Connection refused: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:642) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:548) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:599) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:284) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:668) ~[na:na]
+	at com.rabbitmq.client.impl.SocketFrameHandlerFactory.create(SocketFrameHandlerFactory.java:61) ~[amqp-client-5.30.0.jar:5.30.0]
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1355) ~[amqp-client-5.30.0.jar:5.30.0]
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1297) ~[amqp-client-5.30.0.jar:5.30.0]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectAddresses(AbstractConnectionFactory.java:676) ~[spring-rabbit-4.1.0.jar:4.1.0]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:644) ~[spring-rabbit-4.1.0.jar:4.1.0]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:590) ~[spring-rabbit-4.1.0.jar:4.1.0]
+	... 41 common frames omitted
+
+2026-09-29T22:31:25.973+02:00  INFO 8864 --- [e-store] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-09-29T22:31:25.978+02:00  INFO 8864 --- [e-store] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-09-29T22:31:25.987+02:00  INFO 8864 --- [e-store] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-29T22:31:25.990+02:00  INFO 8864 --- [e-store] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-09-29T22:31:25.995+02:00  INFO 8864 --- [e-store] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-09-29T22:31:28.668+02:00  INFO 18544 --- [e-store] [restartedMain] r.a.ni.pmf.rwa.estore.EStoreApplication  : Starting EStoreApplication using Java 26.0.2.1 with PID 18544 (C:\Users\Admin\Desktop\Prodavnica\RWA\e-store\target\classes started by Admin in C:\Users\Admin\Desktop\Prodavnica\RWA\e-store)
+2026-09-29T22:31:28.672+02:00  INFO 18544 --- [e-store] [restartedMain] r.a.ni.pmf.rwa.estore.EStoreApplication  : No active profile set, falling back to 1 default profile: "default"
+2026-09-29T22:31:28.729+02:00  INFO 18544 --- [e-store] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-09-29T22:31:28.730+02:00  INFO 18544 --- [e-store] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-09-29T22:31:29.975+02:00  INFO 18544 --- [e-store] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-29T22:31:30.074+02:00  INFO 18544 --- [e-store] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 87 ms. Found 8 JPA repository interfaces.
+2026-09-29T22:31:30.889+02:00  INFO 18544 --- [e-store] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-09-29T22:31:30.903+02:00  INFO 18544 --- [e-store] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-29T22:31:30.903+02:00  INFO 18544 --- [e-store] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-09-29T22:31:30.953+02:00  INFO 18544 --- [e-store] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2222 ms
+2026-09-29T22:31:31.472+02:00  INFO 18544 --- [e-store] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-29T22:31:31.641+02:00  INFO 18544 --- [e-store] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@754cf10d
+2026-09-29T22:31:31.644+02:00  INFO 18544 --- [e-store] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-29T22:31:31.683+02:00  INFO 18544 --- [e-store] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/e_store?useSSL=false&serverTimezone=Europe/Belgrade&allowPublicKeyRetrieval=true (MySQL 9.1)
+2026-09-29T22:31:31.766+02:00  INFO 18544 --- [e-store] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.035s)
+2026-09-29T22:31:31.780+02:00  INFO 18544 --- [e-store] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema `e_store`: 2
+2026-09-29T22:31:31.785+02:00  INFO 18544 --- [e-store] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema `e_store` is up to date. No migration necessary.
+2026-09-29T22:31:31.886+02:00  INFO 18544 --- [e-store] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-09-29T22:31:31.946+02:00  INFO 18544 --- [e-store] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-09-29T22:31:32.445+02:00  INFO 18544 --- [e-store] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-29T22:31:32.544+02:00  INFO 18544 --- [e-store] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/e_store?useSSL=false&serverTimezone=Europe/Belgrade&allowPublicKeyRetrieval=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 9.1
+	Default catalog/schema: e_store/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-09-29T22:31:34.031+02:00  INFO 18544 --- [e-store] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-29T22:31:34.083+02:00  INFO 18544 --- [e-store] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-29T22:31:34.208+02:00  INFO 18544 --- [e-store] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-09-29T22:31:34.543+02:00  INFO 18544 --- [e-store] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailService
+2026-09-29T22:31:36.179+02:00  WARN 18544 --- [e-store] [restartedMain] i.m.c.i.b.cache.CaffeineCacheMetrics     : The cache 'storeProductsAll' is not recording statistics. No meters except 'cache.size' will be registered. Call 'Caffeine#recordStats()' prior to building the cache for metrics to be recorded.
+2026-09-29T22:31:36.181+02:00  WARN 18544 --- [e-store] [restartedMain] i.m.c.i.b.cache.CaffeineCacheMetrics     : The cache 'exchangeRates' is not recording statistics. No meters except 'cache.size' will be registered. Call 'Caffeine#recordStats()' prior to building the cache for metrics to be recorded.
+2026-09-29T22:31:36.182+02:00  WARN 18544 --- [e-store] [restartedMain] i.m.c.i.b.cache.CaffeineCacheMetrics     : The cache 'storeProductsByProduct' is not recording statistics. No meters except 'cache.size' will be registered. Call 'Caffeine#recordStats()' prior to building the cache for metrics to be recorded.
+2026-09-29T22:31:36.182+02:00  WARN 18544 --- [e-store] [restartedMain] i.m.c.i.b.cache.CaffeineCacheMetrics     : The cache 'exchangeRatesById' is not recording statistics. No meters except 'cache.size' will be registered. Call 'Caffeine#recordStats()' prior to building the cache for metrics to be recorded.
+2026-09-29T22:31:36.182+02:00  WARN 18544 --- [e-store] [restartedMain] i.m.c.i.b.cache.CaffeineCacheMetrics     : The cache 'users' is not recording statistics. No meters except 'cache.size' will be registered. Call 'Caffeine#recordStats()' prior to building the cache for metrics to be recorded.
+2026-09-29T22:31:36.182+02:00  WARN 18544 --- [e-store] [restartedMain] i.m.c.i.b.cache.CaffeineCacheMetrics     : The cache 'storeProductsById' is not recording statistics. No meters except 'cache.size' will be registered. Call 'Caffeine#recordStats()' prior to building the cache for metrics to be recorded.
+2026-09-29T22:31:36.183+02:00  WARN 18544 --- [e-store] [restartedMain] i.m.c.i.b.cache.CaffeineCacheMetrics     : The cache 'exchangeRatesDate' is not recording statistics. No meters except 'cache.size' will be registered. Call 'Caffeine#recordStats()' prior to building the cache for metrics to be recorded.
+2026-09-29T22:31:36.183+02:00  WARN 18544 --- [e-store] [restartedMain] i.m.c.i.b.cache.CaffeineCacheMetrics     : The cache 'storeProductsByStore' is not recording statistics. No meters except 'cache.size' will be registered. Call 'Caffeine#recordStats()' prior to building the cache for metrics to be recorded.
+2026-09-29T22:31:36.184+02:00  WARN 18544 --- [e-store] [restartedMain] i.m.c.i.b.cache.CaffeineCacheMetrics     : The cache 'exchangeRatesList' is not recording statistics. No meters except 'cache.size' will be registered. Call 'Caffeine#recordStats()' prior to building the cache for metrics to be recorded.
+2026-09-29T22:31:36.334+02:00  INFO 18544 --- [e-store] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-09-29T22:31:36.512+02:00  INFO 18544 --- [e-store] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-09-29T22:31:36.527+02:00  INFO 18544 --- [e-store] [restartedMain] r.a.ni.pmf.rwa.estore.EStoreApplication  : Started EStoreApplication in 8.353 seconds (process running for 9.406)
+2026-09-29T22:31:36.538+02:00  WARN 18544 --- [e-store] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-09-29T22:31:36.539+02:00  WARN 18544 --- [e-store] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-09-29T22:31:36.838+02:00  INFO 18544 --- [e-store] [RMI TCP Connection(4)-192.168.0.30] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-29T22:31:36.838+02:00  INFO 18544 --- [e-store] [RMI TCP Connection(4)-192.168.0.30] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-29T22:31:36.841+02:00  INFO 18544 --- [e-store] [RMI TCP Connection(4)-192.168.0.30] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-09-29T22:31:45.026+02:00  INFO 18544 --- [e-store] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-09-29T22:31:45.031+02:00  INFO 18544 --- [e-store] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-09-29T22:31:45.039+02:00  INFO 18544 --- [e-store] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-29T22:31:45.042+02:00  INFO 18544 --- [e-store] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-09-29T22:31:45.047+02:00  INFO 18544 --- [e-store] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
