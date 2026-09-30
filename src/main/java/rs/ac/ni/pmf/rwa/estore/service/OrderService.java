@@ -123,10 +123,20 @@ public class OrderService {
             List<OrderItemEntity> orderItemEntities = orderItemRepository.findByOrderId(orderEntity.getId());
 
             List<OrderItemResponse> orderItemResponses = orderItemEntities.stream()
-                    .map(orderItemMapper::toOrderItemResponse)
+                    .map(entity -> OrderItemResponse.builder()
+                            .orderItemId(entity.getId())
+                            .storeProductId(entity.getStoreProduct().getId())
+                            .productName(entity.getStoreProduct().getName())
+                            .quantity(entity.getQuantity())
+                            .priceAtPurchase(entity.getPriceAtPurchase())
+                            .build())
                     .toList();
 
-            return orderMapper.toOrderResponse(orderEntity);
+            return orderMapper.toOrderResponse(orderEntity)
+                    .toBuilder()
+                    .items(orderItemResponses)
+                    .build();
+
         });
 
         return orderResponsePage;
@@ -140,7 +150,15 @@ public class OrderService {
 
         List<OrderItemEntity> orderItemEntities = orderItemRepository.findByOrderId(orderEntity.getId());
 
-        List<OrderItemResponse> orderItemResponse = orderItemEntities.stream().map(orderItemMapper::toOrderItemResponse).toList();
+        List<OrderItemResponse> orderItemResponse = orderItemEntities.stream()
+                .map(entity -> OrderItemResponse.builder()
+                        .orderItemId(entity.getId())
+                        .storeProductId(entity.getStoreProduct().getId())
+                        .productName(entity.getStoreProduct().getName())
+                        .quantity(entity.getQuantity())
+                        .priceAtPurchase(entity.getPriceAtPurchase())
+                        .build())
+                .toList();
 
         //OrderResponse orderResponse = orderMapper.toOrderResponse(orderEntity);
         /*OrderResponse orderResponse = OrderResponse.builder()
